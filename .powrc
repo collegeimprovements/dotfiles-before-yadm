@@ -1,0 +1,1 @@
+export PATH="~/.rubies/ruby-2.1.0p0/bin:$PATH"

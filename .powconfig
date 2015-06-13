@@ -1,0 +1,4 @@
+#source /usr/local/share/chruby/chruby.sh
+# ahiya thi shodhyu chhe ::> http://wellbredgrapefruit.com/blog/2012/09/25/zsh/
+export PATH="/Users/arpit/.rbenv/shims:/Users/arpit/.rbenv/bin:$PATH"
+export PATH=`brew --prefix rbenv`/shims:`brew --prefix rbenv`/bin:$PATH
