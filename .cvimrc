@@ -1,0 +1,10 @@
+let configpath = '~/.cvimrc'
+set localconfig
+let mapleader = "<Space>"
+map <Leader>l <C-6>
+map <Leader>b :buffer<Space>
+set defaultnewtabpage
+map <Leader>gh :open! https://github.com/collegeimprovements<CR>
+map <Leader>so :open! http://stackoverflow.com/questions/tagged/ruby?sort=frequent&pageSize=50<CR>
+map l nextTab
+map s previousTab
