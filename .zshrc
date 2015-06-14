@@ -120,6 +120,7 @@ alias zrc="subl ~/.zshrc"
 alias ...="cd ../.."
 alias ..="cd ../"
 alias cd..="cd.."
+alias bd="~/dotfiles/bootstrap.sh"
 
 
 alias ydl="youtube-dl -f 18"

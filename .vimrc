@@ -22,14 +22,18 @@
  NeoBundle 'Shougo/neosnippet-snippets'
  NeoBundle 'tpope/vim-rails'
  NeoBundle 'tpope/vim-fugitive'
+ NeoBundle 'tpope/vim-endwise'
  NeoBundle 'tpope/vim-surround'
  NeoBundle 'tpope/vim-projectionist'
  NeoBundle 'tpope/vim-ragtag'
  NeoBundle 'tpope/vim-repeat'
  NeoBundle 'tpope/vim-commentary'
+ NeoBundle 'vim-ruby/vim-ruby'
+ NeoBundle 't9md/vim-ruby-xmpfilter'
  NeoBundle 'scrooloose/syntastic'
  NeoBundle 'xolox/vim-misc'
  NeoBundle 'xolox/vim-notes'
+ NeoBundle 'xolox/vim-easytags'
  NeoBundle 'mattn/emmet-vim'
  NeoBundle 'mattn/gist-vim'
  NeoBundle 'ryanoasis/vim-webdevicons'
@@ -45,6 +49,12 @@
  NeoBundle 'mhinz/vim-sayonara'
  NeoBundle 'powerline/powerline'
  NeoBundle 'ntpeters/vim-better-whitespace'
+ NeoBundle 'majutsushi/tagbar'
+ NeoBundle 'jaxbot/semantic-highlight.vim'
+ " NeoBundle 'nelstrom/vim-textobj-rubyblock'
+ NeoBundle 'nathanaelkane/vim-indent-guides'
+ NeoBundle 'tmm1/ripper-tags'
+ NeoBundle 'danchoi/ri.vim'
 
  NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
@@ -81,7 +91,15 @@
  call neobundle#end()
 
  " Required:
- filetype plugin indent on
+ " filetype plugin indent on
+
+" Now that all syntax plugins are in the runtime path, turn on the syntax engine
+  syntax on
+  filetype on
+  filetype plugin on
+  filetype plugin indent on
+
+
 
  " If there are uninstalled bundles found on startup,
  " this will conveniently prompt you to install them.
@@ -108,25 +126,6 @@ function! s:unite_settings()
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -216,6 +215,20 @@ filetype indent on      " load filetype-specific indent files
 
 " Set to auto read when a file is changed from the outside
 set autoread
+
+" Disable backup and swap files
+set nobackup
+set noswapfile
+
+" Use the OS clipboard
+set clipboard=unnamed
+
+
+" allow buffer switching without saving
+set hidden
+
+
+
 " How many lines to scroll at a time, make scrolling appears faster
 set scrolljump=3
 
@@ -223,11 +236,6 @@ set scrolljump=3
 "Programming Related Stuff
 "1. Enable Syntax
 syntax enable
-
-
-
-
-
 
 
 
@@ -248,7 +256,14 @@ syntax enable
 "
 "**************************************** Vimfiler ****************************************************************
 let g:vimfiler_as_default_explorer = 1
-
+" No need for this : just use gs to toggle safe mode
+" " Enable file operation commands.
+"   " Edit file by tabedit.
+"   call vimfiler#custom#profile('default', 'context', {
+"         \ 'safe' : 0,
+"         \ })
+nnoremap <leader>n :VimFilerExplorer<CR>
+let g:vimfiler_enable_auto_cd = 1
 "****************************************END Vimfiler END *********************************************************
 "
 "
@@ -259,6 +274,7 @@ highlight CursorColumn ctermbg=232
 
 
 ""for normal mode when going to next line go to the start
+" Wrapped lines goes down/up to next row, rather than next line in file.
 nnoremap j gj
 nnoremap k gk
 
@@ -274,3 +290,307 @@ inoremap <silent> <c-s> <c-o>:update<cr>
 set mouse=vn
 set ttymouse=xterm2
 set ttyfast
+
+
+
+
+
+
+" Show status line
+set laststatus=2
+
+" Change dir to file path on ,d ****** from: https://github.com/jaxbot/vimfiles/blob/master/vimrc ******
+nnoremap ,d :lcd %:p:h<CR>
+
+
+" enable ruby omnicomplete
+let g:rubycomplete_buffer_loading = 1
+let g:rubycomplete_classes_in_global = 1
+
+
+
+
+
+
+
+
+
+"***********************************************************************************************************************************
+"***********************************************************************************************************************************
+"**************************Unite Settings : http://mouki.io/2013/08/15/Vim-CtrlP-behaviour-with-Unite.html**************************
+"***********************************************************************************************************************************
+"***********************************************************************************************************************************
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Unite
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:unite_enable_start_insert = 1
+let g:unite_split_rule = "botright"
+let g:unite_force_overwrite_statusline = 0
+let g:unite_winheight = 10
+
+call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+      \ 'ignore_pattern', join([
+      \ '\.git/',
+      \ ], '\|'))
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+
+nnoremap <C-P> :<C-u>Unite  -buffer-name=files   -start-insert buffer file_rec/async:!<cr>
+
+autocmd FileType unite call s:unite_settings()
+
+function! s:unite_settings()
+  let b:SuperTabDisabled=1
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  imap <silent><buffer><expr> <C-x> unite#do_action('split')
+  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+
+  nmap <buffer> <ESC> <Plug>(unite_exit)
+endfunction
+
+
+
+"******************************************************************************
+" Unite mappings : from https://github.com/jaxbot/vimfiles/blob/master/vimrc
+"******************************************************************************
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" call unite#filters#sorter_default#use(['sorter_rank'])
+" call unite#set_profile('files', 'smartcase', 1)
+" call unite#custom#profile('files', 'filters', ['sorter_rank'])
+" call unite#custom#source('line,outline','matchers','matcher_fuzzy')
+" call unite#custom#source('file_rec', 'ignore_pattern', 'node_modules/')
+" call unite#custom#source('file_rec', 'ignore_pattern', '.git/')
+" let g:unite_source_history_yank_enable = 1
+" nnoremap <leader>e :Unite -start-insert file_mru<cr>
+" nnoremap <leader>f :Unite -start-insert file_rec<cr>
+" nnoremap <leader>s :Unite -start-insert buffer<cr>
+" nnoremap <leader>y :Unite history/yank<cr>
+
+
+
+
+
+
+
+
+"***********************************************************************************************************************************
+"***********************************************************************************************************************************
+"********************NeoComplete Settings : https://github.com/jaxbot/vimfiles/blob/master/vimrc************************************
+"***********************************************************************************************************************************
+"***********************************************************************************************************************************
+" Neocomplete
+" Automatically suggest things
+let g:neocomplete#enable_at_startup = 1
+" test matches Test and test, but Test only matches Test
+let g:neocomplete#enable_smart_case = 1
+" Show starting at 2 characters
+let g:neocomplete#sources#syntax#min_keyword_length = 2
+" inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "<CR>"
+inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+
+"**********************************************************************************************
+"**********************************************************************************************
+"*********************NeoSnippet settings from it's github page********************************
+"**********************************************************************************************
+
+
+
+let g:neosnippet#snippets_directory="/Users/arpit/.vim/neosnips"
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
+
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: "\<TAB>"
+
+" inoremap <expr><Space> pumvisible() ? "\<C-n>" : "\<CR>"
+
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplete#enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplete#enable_insert_char_pre = 1
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+
+
+
+
+
+
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+
+
+
+
+
+let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+ " Define keyword.
+    let g:neocomplete#keyword_patterns = {}
+    let g:neocomplete#keyword_patterns._ = '\h\w*'
+if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
+let g:neocomplete#sources#vim#complete_functions = {
+        \     'Unite': 'unite#complete_source',
+        \     'VimShell': 'vimshell#complete',
+        \     'VimFiler': 'vimfiler#complete',
+        \ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+" *******************************************************************************************
+" *******************************************************************************************
+" *******************************************************************************************
+" *****************ruby-xmpfilter settings***************************************************
+" *******************************************************************************************
+" *******************************************************************************************
+let g:xmpfilter_cmd = "seeing_is_believing"
+
+autocmd FileType ruby nmap <buffer> <D-m> <Plug>(seeing_is_believing-mark)
+autocmd FileType ruby xmap <buffer> <D-m> <Plug>(seeing_is_believing-mark)
+autocmd FileType ruby imap <buffer> <D-m> <Plug>(seeing_is_believing-mark)
+
+autocmd FileType ruby nmap <buffer> <D-c> <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby xmap <buffer> <D-c> <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby imap <buffer> <D-c> <Plug>(seeing_is_believing-clean)
+
+" xmpfilter compatible
+autocmd FileType ruby nmap <buffer> <D-r> <Plug>(seeing_is_believing-run_-x)
+autocmd FileType ruby xmap <buffer> <D-r> <Plug>(seeing_is_believing-run_-x)
+autocmd FileType ruby imap <buffer> <D-r> <Plug>(seeing_is_believing-run_-x)
+
+" auto insert mark at appropriate spot.
+autocmd FileType ruby nmap <buffer> <F5> <Plug>(seeing_is_believing-run)
+autocmd FileType ruby xmap <buffer> <F5> <Plug>(seeing_is_believing-run)
+autocmd FileType ruby imap <buffer> <F5> <Plug>(seeing_is_believing-run)
