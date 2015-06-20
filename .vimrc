@@ -51,10 +51,21 @@
  NeoBundle 'ntpeters/vim-better-whitespace'
  NeoBundle 'majutsushi/tagbar'
  NeoBundle 'jaxbot/semantic-highlight.vim'
- " NeoBundle 'nelstrom/vim-textobj-rubyblock'
  NeoBundle 'nathanaelkane/vim-indent-guides'
  NeoBundle 'tmm1/ripper-tags'
  NeoBundle 'danchoi/ri.vim'
+ NeoBundle 'marijnh/tern_for_vim'
+ NeoBundle 'maksimr/vim-jsbeautify'
+ NeoBundle 'osyo-manga/vim-over'
+ NeoBundle 'othree/javascript-libraries-syntax.vim'
+ NeoBundle 'junegunn/vim-easy-align'
+ NeoBundle 'junegunn/vim-peekaboo'
+ NeoBundle 'junegunn/rainbow_parentheses.vim'
+ NeoBundle 'henrik/vim-indexed-search'
+ NeoBundle 'vim-scripts/SearchComplete'
+ NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+ 
+ " NeoBundle 'nelstrom/vim-textobj-rubyblock'
 
  NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
@@ -388,8 +399,8 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 " Show starting at 2 characters
 let g:neocomplete#sources#syntax#min_keyword_length = 2
-" inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "<CR>"
-inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "<CR>"
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
 
 "**********************************************************************************************
@@ -482,7 +493,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
+"inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
@@ -594,3 +605,111 @@ autocmd FileType ruby imap <buffer> <D-r> <Plug>(seeing_is_believing-run_-x)
 autocmd FileType ruby nmap <buffer> <F5> <Plug>(seeing_is_believing-run)
 autocmd FileType ruby xmap <buffer> <F5> <Plug>(seeing_is_believing-run)
 autocmd FileType ruby imap <buffer> <F5> <Plug>(seeing_is_believing-run)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+" *************************************************************************************
+" *************************************************************************************
+" ************************Vim-Monster**************************************************
+" *************************************************************************************
+" Set async completion.
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+
+" Use neocomplete.vim
+let g:neocomplete#sources#omni#input_patterns = {
+\   "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+\}
+" *************************************************************************************
+" *************************************************************************************
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"From : https://github.com/jelera/vim-javascript-syntax
+au FileType javascript call JavaScriptFold()
+" 
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+" ********************************************************************************************
+" *******************Syntastic***************************************************
+" ********************************************************************************************
+" ********************************************************************************************
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+" ********************************************************************************************
+"******************************* VimEasyAlign *******************************
+" ********************************************************************************************
+" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
+vmap <Enter> <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+"****************************************************************************
