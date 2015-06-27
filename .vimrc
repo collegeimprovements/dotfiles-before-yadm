@@ -20,6 +20,7 @@
  NeoBundle 'Shougo/neocomplete'
  NeoBundle 'Shougo/neosnippet'
  NeoBundle 'Shougo/neosnippet-snippets'
+ NeoBundle 'Shougo/neomru.vim'
  NeoBundle 'tpope/vim-rails'
  NeoBundle 'tpope/vim-fugitive'
  NeoBundle 'tpope/vim-endwise'
@@ -36,6 +37,7 @@
  NeoBundle 'xolox/vim-easytags'
  NeoBundle 'mattn/emmet-vim'
  NeoBundle 'mattn/gist-vim'
+ NeoBundle 'Chiel92/vim-autoformat'
  NeoBundle 'ryanoasis/vim-webdevicons'
  NeoBundle 'bling/vim-airline'
  NeoBundle 'bling/vim-bufferline'
@@ -58,14 +60,23 @@
  NeoBundle 'maksimr/vim-jsbeautify'
  NeoBundle 'osyo-manga/vim-over'
  NeoBundle 'othree/javascript-libraries-syntax.vim'
+ NeoBundle 'othree/html5.vim'
  NeoBundle 'junegunn/vim-easy-align'
  NeoBundle 'junegunn/vim-peekaboo'
  NeoBundle 'junegunn/rainbow_parentheses.vim'
+ NeoBundle 'junegunn/goyo.vim'
+ NeoBundle 'junegunn/limelight.vim'
+ NeoBundle 'junegunn/vim-journal'
+ NeoBundle 'junegunn/vim-pseudocl'
+ NeoBundle 'junegunn/vim-oblique'
  NeoBundle 'henrik/vim-indexed-search'
  NeoBundle 'vim-scripts/SearchComplete'
+ NeoBundle 'jiangmiao/auto-pairs'
+ NeoBundle 'elzr/vim-json'
+ NeoBundle 'ap/vim-css-color'
+ "NeoBundle 'nelstrom/vim-textobj-rubyblock'
  NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
- 
- " NeoBundle 'nelstrom/vim-textobj-rubyblock'
+
 
  NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
@@ -116,27 +127,29 @@
  " this will conveniently prompt you to install them.
  NeoBundleCheck
 
+ " Here is something I stole from reddit
+ set clipboard^=unnamed
 
  "Unite Configuration
  " Unite
-let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+" let g:unite_source_history_yank_enable = 1
+" call unite#filters#matcher_default#use(['matcher_fuzzy'])
+" nnoremap <leader>t :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+" nnoremap <leader>f :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+" nnoremap <leader>r :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+" nnoremap <leader>o :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+" nnoremap <leader>y :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+" nnoremap <leader>e :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
-" Custom mappings for the unite buffer
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  " Play nice with supertab
-  let b:SuperTabDisabled=1
-  " Enable navigation with control-j and control-k in insert mode
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-endfunction
+" " Custom mappings for the unite buffer
+" autocmd FileType unite call s:unite_settings()
+" function! s:unite_settings()
+"   " Play nice with supertab
+"   let b:SuperTabDisabled=1
+"   " Enable navigation with control-j and control-k in insert mode
+"   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+"   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+" endfunction
 
 
 
@@ -385,7 +398,9 @@ endfunction
 
 
 
-
+"***********************************************************************************************************************************
+inoremap jk <esc>
+inoremap kj <esc>
 
 "***********************************************************************************************************************************
 "***********************************************************************************************************************************
@@ -399,7 +414,7 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 " Show starting at 2 characters
 let g:neocomplete#sources#syntax#min_keyword_length = 2
-inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "<CR>"
+" inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "<CR>"
 "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
 
@@ -660,7 +675,7 @@ let g:neocomplete#sources#omni#input_patterns = {
 "
 "From : https://github.com/jelera/vim-javascript-syntax
 au FileType javascript call JavaScriptFold()
-" 
+"
 "
 "
 "
@@ -713,3 +728,35 @@ vmap <Enter> <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 "****************************************************************************
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+" ********************************************************************************************
+" ********************************************************************************************
+" ***********************************************Autoformat**************************
+noremap <F3> :Autoformat<CR>
+au BufWrite * :Autoformat
+
+
+
+
+
+" ********************************************************************************************
+" ********************************************************************************************
+" ***************************Vim Expand Region************************************************
+map K <Plug>(expand_region_expand)
+map J <Plug>(expand_region_shrink)
