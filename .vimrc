@@ -336,6 +336,19 @@ let g:rubycomplete_classes_in_global = 1
 
 
 
+" Map Q to repeat the last recorded macro
+nmap Q @@
+
+
+
+" Custom Invisibles
+" invisibles list listchars custom
+" set list
+" set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+" set showbreak=↪
+
+
+
 
 
 
@@ -607,12 +620,12 @@ autocmd FileType ruby nmap <buffer> <D-m> <Plug>(seeing_is_believing-mark)
 autocmd FileType ruby xmap <buffer> <D-m> <Plug>(seeing_is_believing-mark)
 autocmd FileType ruby imap <buffer> <D-m> <Plug>(seeing_is_believing-mark)
 
-autocmd FileType ruby nmap <buffer> <D-c> <Plug>(seeing_is_believing-clean)
+autocmd FileType ruby nmap <buffer> <leader>l <Plug>(seeing_is_believing-clean)
 autocmd FileType ruby xmap <buffer> <D-c> <Plug>(seeing_is_believing-clean)
 autocmd FileType ruby imap <buffer> <D-c> <Plug>(seeing_is_believing-clean)
 
 " xmpfilter compatible
-autocmd FileType ruby nmap <buffer> <D-r> <Plug>(seeing_is_believing-run_-x)
+autocmd FileType ruby nmap <buffer> <F6> <Plug>(seeing_is_believing-run_-x)
 autocmd FileType ruby xmap <buffer> <D-r> <Plug>(seeing_is_believing-run_-x)
 autocmd FileType ruby imap <buffer> <D-r> <Plug>(seeing_is_believing-run_-x)
 
@@ -625,7 +638,23 @@ autocmd FileType ruby imap <buffer> <F5> <Plug>(seeing_is_believing-run)
 
 
 
+" Gvim
+" nmap <buffer> <M-r> <Plug>(seeing-is-believing-run)
+" xmap <buffer> <M-r> <Plug>(seeing-is-believing-run)
+" imap <buffer> <M-r> <Plug>(seeing-is-believing-run)
 
+" nmap <buffer> <M-m> <Plug>(seeing-is-believing-mark)
+" xmap <buffer> <M-m> <Plug>(seeing-is-believing-mark)
+" imap <buffer> <M-m> <Plug>(seeing-is-believing-mark)
+
+" " Terminal
+" nmap <buffer> <F5> <Plug>(seeing-is-believing-run)
+" xmap <buffer> <F5> <Plug>(seeing-is-believing-run)
+" imap <buffer> <F5> <Plug>(seeing-is-believing-run)
+
+" nmap <buffer> <F4> <Plug>(seeing-is-believing-mark)
+" xmap <buffer> <F4> <Plug>(seeing-is-believing-mark)
+" imap <buffer> <F4> <Plug>(seeing-is-believing-mark)
 
 
 
