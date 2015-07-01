@@ -74,6 +74,8 @@
  NeoBundle 'jiangmiao/auto-pairs'
  NeoBundle 'elzr/vim-json'
  NeoBundle 'ap/vim-css-color'
+ NeoBundle 'jaxbot/browserlink.vim'
+ NeoBundle 'keith/investigate.vim'
  "NeoBundle 'nelstrom/vim-textobj-rubyblock'
  NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
