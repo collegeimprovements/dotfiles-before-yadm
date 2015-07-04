@@ -16,6 +16,7 @@
  " Let NeoBundle manage NeoBundle
  " Required:
  NeoBundle 'Shougo/neobundle.vim'
+ NeoBundle 'rizzatti/dash.vim'
  NeoBundle 'Shougo/vimfiler.vim'
  NeoBundle 'Shougo/neocomplete'
  NeoBundle 'Shougo/neosnippet'
