@@ -39,6 +39,7 @@
  NeoBundle 'mattn/emmet-vim'
  NeoBundle 'mattn/gist-vim'
  NeoBundle 'Chiel92/vim-autoformat'
+ NeoBundle 'mustache/vim-mustache-handlebars'
  NeoBundle 'ryanoasis/vim-webdevicons'
  NeoBundle 'bling/vim-airline'
  NeoBundle 'bling/vim-bufferline'
@@ -57,7 +58,7 @@
  NeoBundle 'nathanaelkane/vim-indent-guides'
  NeoBundle 'tmm1/ripper-tags'
  NeoBundle 'danchoi/ri.vim'
- NeoBundle 'marijnh/tern_for_vim'
+ " NeoBundle 'marijnh/tern_for_vim'
  NeoBundle 'maksimr/vim-jsbeautify'
  NeoBundle 'osyo-manga/vim-over'
  NeoBundle 'othree/javascript-libraries-syntax.vim'
@@ -75,7 +76,7 @@
  NeoBundle 'jiangmiao/auto-pairs'
  NeoBundle 'elzr/vim-json'
  NeoBundle 'ap/vim-css-color'
- NeoBundle 'jaxbot/browserlink.vim'
+ " NeoBundle 'jaxbot/browserlink.vim'
  NeoBundle 'keith/investigate.vim'
  "NeoBundle 'nelstrom/vim-textobj-rubyblock'
  NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
@@ -781,7 +782,7 @@ nmap ga <Plug>(EasyAlign)
 " ********************************************************************************************
 " ***********************************************Autoformat**************************
 noremap <F3> :Autoformat<CR>
-au BufWrite * :Autoformat
+" au BufWrite * :Autoformat
 
 
 
@@ -792,3 +793,18 @@ au BufWrite * :Autoformat
 " ***************************Vim Expand Region************************************************
 map K <Plug>(expand_region_expand)
 map J <Plug>(expand_region_shrink)
+
+
+
+
+
+
+
+
+"**********************************************************************************************
+"**********************************************************************************************
+"*****************************Syntastic****************************************************
+"**********************************************************************************************
+let g:syntastic_mode_map={ 'mode': 'active',
+                     \ 'active_filetypes': [],
+                     \ 'passive_filetypes': ['html'] }
