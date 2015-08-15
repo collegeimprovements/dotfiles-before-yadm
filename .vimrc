@@ -30,6 +30,7 @@
  NeoBundle 'tpope/vim-ragtag'
  NeoBundle 'tpope/vim-repeat'
  NeoBundle 'tpope/vim-commentary'
+ NeoBundle 'tpope/vim-dispatch'
  NeoBundle 'vim-ruby/vim-ruby'
  NeoBundle 't9md/vim-ruby-xmpfilter'
  NeoBundle 'scrooloose/syntastic'
@@ -58,7 +59,7 @@
  NeoBundle 'nathanaelkane/vim-indent-guides'
  NeoBundle 'tmm1/ripper-tags'
  NeoBundle 'danchoi/ri.vim'
- " NeoBundle 'marijnh/tern_for_vim'
+ NeoBundle 'marijnh/tern_for_vim'
  NeoBundle 'maksimr/vim-jsbeautify'
  NeoBundle 'osyo-manga/vim-over'
  NeoBundle 'othree/javascript-libraries-syntax.vim'
@@ -238,7 +239,7 @@ noremap <leader>j <c-w>j
 "Set line numbers and relative line numbers -  at this point I think they are
 "more helpful
 set number
-set relativenumber
+" set relativenumber "because it's making vim extremely slow specially in ruby files
 
 set showcmd " show command in bottom bar
 
