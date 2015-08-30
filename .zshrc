@@ -73,7 +73,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git rails ruby bower bundler common-aliases dirhistory git-extras github httpie jira jsontools osx pip pow svn tmux vi-mode wd zsh-syntax-highlighting)
 
 # -------------------------------------------------------------------
 # Git - aliases - taken from : https://gist.github.com/zanshin/1142739
