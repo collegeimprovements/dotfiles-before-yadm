@@ -12,8 +12,6 @@ set -o vi
 
 
 
-
-
 #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 
 # PATH="/usr/local/bin:/usr/local/sbin:$PATH" #aa stackoverflow parthi joine karelu 6e
@@ -153,6 +151,7 @@ export PATH="/usr/local/share/npm/bin:/usr/local/sbin:~/bin:$PATH" ##delete -for
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="/Applications/Postgres.app/Contents/MacOS/bin:$PATH"
+export PATH="/Users/arpit/bin:$PATH"
 
 
 # ##for rvm if not works remove the line below

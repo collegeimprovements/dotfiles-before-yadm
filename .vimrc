@@ -210,6 +210,7 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
  NeoBundle 'wellle/targets.vim'
  NeoBundle 'kana/vim-textobj-user'
  NeoBundle 'rhysd/vim-textobj-ruby'
+ NeoBundle 'christoomey/vim-tmux-navigator'
  " NeoBundle 'nelstrom/vim-textobj-rubyblock'
  " NeoBundle 'tmhedberg/matchit'
  " NeoBundle 'jaxbot/browserlink.vim'
