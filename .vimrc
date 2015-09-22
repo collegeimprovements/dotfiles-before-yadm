@@ -211,10 +211,12 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
  NeoBundle 'kana/vim-textobj-user'
  NeoBundle 'rhysd/vim-textobj-ruby'
  NeoBundle 'christoomey/vim-tmux-navigator'
+ NeoBundle 'christoomey/vim-tmux-runner'
  " NeoBundle 'nelstrom/vim-textobj-rubyblock'
  " NeoBundle 'tmhedberg/matchit'
  " NeoBundle 'jaxbot/browserlink.vim'
  NeoBundle 'keith/investigate.vim'
+ NeoBundle 'wellle/tmux-complete.vim'
  "NeoBundle 'nelstrom/vim-textobj-rubyblock'
  NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
@@ -790,7 +792,14 @@ let g:syntastic_enable_signs=1
 
 
 
+"
+" ********************************************************************************************
+" *******************tmux-complete***************************************************
+" ********************************************************************************************
+" ********************************************************************************************
 
+" let g:tmuxcomplete#trigger = 'completefunc'
+let g:tmuxcomplete#trigger = ''
 
 
 
