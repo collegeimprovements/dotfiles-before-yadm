@@ -212,11 +212,17 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
  NeoBundle 'rhysd/vim-textobj-ruby'
  NeoBundle 'christoomey/vim-tmux-navigator'
  NeoBundle 'christoomey/vim-tmux-runner'
+ NeoBundle 'jeetsukumaran/vim-indentwise'
  " NeoBundle 'nelstrom/vim-textobj-rubyblock'
  " NeoBundle 'tmhedberg/matchit'
  " NeoBundle 'jaxbot/browserlink.vim'
  NeoBundle 'keith/investigate.vim'
  NeoBundle 'wellle/tmux-complete.vim'
+ NeoBundle 'wincent/terminus'
+ NeoBundle 'wincent/ferret'
+ NeoBundle 'ktonga/vim-follow-my-lead'
+ NeoBundle 'vasconcelloslf/vim-interestingwords'
+ NeoBundle 'vasconcelloslf/vim-foldfocus'
  "NeoBundle 'nelstrom/vim-textobj-rubyblock'
  NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 
@@ -512,12 +518,29 @@ nmap Q @@
 
 "***********************************************************************************************************************************
 "***********************************************************************************************************************************
-"************************************************ vim textobj-rubyblock ************************************************************
+"************************************************  vim-interestingwords ************************************************************
 "***********************************************************************************************************************************
+nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
+nnoremap <silent> <leader>K :call UncolorAllWords()<cr>
+
+nnoremap <silent> n :call WordNavigation('forward')<cr>
+nnoremap <silent> N :call WordNavigation('backward')<cr>
 
 "***********************************************************************************************************************************
 "***********************************************************************************************************************************
 
+
+
+
+
+
+"***********************************************************************************************************************************
+"*******************************************************vim-foldfocus***************************************************************
+"***********************************************************************************************************************************
+nmap <Leader><CR> :call FoldFocus('vnew')<CR>
+
+"***********************************************************************************************************************************
+"***********************************************************************************************************************************
 
 
 "***********************************************************************************************************************************
